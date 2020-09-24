@@ -20,13 +20,19 @@ Use the virt-builder tool to create the VM disk image in qcow2 format:
     --firstboot-command 'systemctl enable serial-getty@ttyS0.service; systemctl start serial-getty@ttyS0.service' \
     --root-password password:root
 
-This command will create a qcow2 image. The important thing here is that it enables the serial console and sets an easy root password
-so that logging in and configuring it will be easy.
+This command will create a qcow2 image. 
+
+The `--firstboot-command` option enables the serial console so we can connect to it with `virsh console` later. This avoids
+any step that needs a windowing system.
+
+The root password is also set so that login is easy. It should be changed before network is activated. If the root
+password is not specified a random password will be generated.
 
 ### Caching and speed
 
 By default virt-builder will cache the template image files in `~/.cache/virt-builder`. This makes creating new VMs fast.
-Building the VM with the `--update` and `--install` options makes it considerably slower. With a cached image, and without `--update`, building a VM
+Building the VM with the `--update` and `--install` options makes it considerably slower, taking about 90 seconds more. 
+With a cached image, and without `--update` or `--install`, building a VM
 takes about 30 seconds. To get a list of the available templates, use `virt-builder --list`. As of this time, there isn't yet an Ubuntu 20.04 template.
 
 # Create an XML file for the VM
