@@ -4,6 +4,8 @@ Ubuntu comes with many options for creating and managing VMs. Sometimes there ar
 of this guide is to show how to create VMs quickly and doing everything from the command line, without
 having to use a windowing system.
 
+This entire guide removes the need to click around in `virt-manager` or similar tools.
+
 This guide assumes libguestfs-tools is installed.
 
 # Creating the VM disk image
@@ -25,7 +27,7 @@ so that logging in and configuring it will be easy.
 
 By default virt-builder will cache the template image files in `~/.cache/virt-builder`. This makes creating new VMs fast.
 Building the VM with the `--update` and `--install` options makes it considerably slower. With a cached image, and without `--update`, building a VM
-takes about 30 seconds.
+takes about 30 seconds. To get a list of the available templates, use `virt-builder --list`. As of this time, there isn't yet an Ubuntu 20.04 template.
 
 # Create an XML file for the VM
 
@@ -112,6 +114,6 @@ The guest will see its IP interface as normal:
 
 This could be configured from within the virt-builder command too by importing it as a file. 
 
-# To do
+# TODO
 
 Update these notes to show a full working example including setting up the guest network from the virt-builder command.
