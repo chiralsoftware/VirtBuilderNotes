@@ -21,8 +21,11 @@ Use the virt-builder tool to create the VM disk image in qcow2 format:
 This command will create a qcow2 image. The important thing here is that it enables the serial console and sets an easy root password
 so that logging in and configuring it will be easy.
 
-By default virt-builder will cache the template image files in .cache in the home directory. This is good because the
-files are large.
+### Caching and speed
+
+By default virt-builder will cache the template image files in `~/.cache/virt-builder`. This makes creating new VMs fast.
+Building the VM with the `--update` and `--install` options makes it considerably slower. With a cached image, and without `--update`, building a VM
+takes about 30 seconds.
 
 # Create an XML file for the VM
 
