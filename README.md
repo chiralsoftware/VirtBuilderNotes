@@ -21,16 +21,17 @@ Use the virt-builder tool to create the VM disk image in qcow2 format:
 This command will create a qcow2 image. The important thing here is that it enables the serial console and sets an easy root password
 so that logging in and configuring it will be easy.
 
-## Caching
-
 By default virt-builder will cache the template image files in .cache in the home directory. This is good because the
 files are large.
 
 # Create an XML file for the VM
 
-    virt-install --name test-ubuntu --import --ram 4096 --disk test-ubuntu.qcow2 --print-xml
+    virt-install --name test-ubuntu --import --ram 4096 --disk test-ubuntu.qcow2 --print-xml > path/to/vm.xml
 
 This will print out a simple XML file for the VM with minimal configuration. Edit if needed. Save this to a file.
+
+The disk image should be placed in a directory in `/var/lib/libvirt/images` . Specify the disk path correctly with the `--disk` parameter
+and then the XML will be ready to use.
 
 # Define the VM
 
@@ -48,7 +49,7 @@ Now from a shell, connect to the console without needing a windowing system:
 
     virsh console test-ubuntu
 
-Proceed to use the VM.
+Proceed to use the VM. Network configuration will be needed.
 
 # Unconfiguring it if necessary
 
@@ -106,4 +107,8 @@ The guest will see its IP interface as normal:
                     - 8.8.8.8
         version: 2
 
-This could be configured from within the virt-builder command too by importing it as a file.
+This could be configured from within the virt-builder command too by importing it as a file. 
+
+# To do
+
+Update these notes to show a full working example including setting up the guest network from the virt-builder command.
