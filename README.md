@@ -12,11 +12,19 @@ Use the virt-builder tool to create the VM disk image in qcow2 format:
 
     virt-builder ubuntu-18.04 --format qcow2 \
     --output test-ubuntu.qcow2 --hostname test-ubuntu \
+    --update \
+    --install emacs \
+    --size 15G \
     --firstboot-command 'systemctl enable serial-getty@ttyS0.service; systemctl start serial-getty@ttyS0.service' \
     --root-password password:root
 
 This command will create a qcow2 image. The important thing here is that it enables the serial console and sets an easy root password
 so that logging in and configuring it will be easy.
+
+## Caching
+
+By default virt-builder will cache the template image files in .cache in the home directory. This is good because the
+files are large.
 
 # Create an XML file for the VM
 
@@ -89,13 +97,13 @@ The guest will see its IP interface as normal:
 
     network:
         ethernets:
-            enx001060316cae:
+            ens3:
                 addresses:
-                - 173.198.59.55/28
-                gateway4: 173.198.59.49
+                - 128.32.43.202/24
+                gateway4: 128.32.43.1
                 nameservers:
                     addresses:
-                    - 209.18.47.61
+                    - 8.8.8.8
         version: 2
 
-This could be configured from within the virt-builder command too
+This could be configured from within the virt-builder command too by importing it as a file.
