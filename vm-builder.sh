@@ -30,7 +30,7 @@ die() { echo "$*" 1>&2 ; exit 1; }
 
 IP=$(echo $IP_ADDRESS | sed 's/\/[0-9]*$//')
 
-ping -W 1 -c 3 $IP || die "couldn't run ping command"
+ping -W 1 -c 3 $IP
 if [ $? -eq 0 ]; then
     echo "IP address: $IP is up. Don't create a VM for this IP without making sure it's ok to delete the existing VM first!"
     exit 1
