@@ -2,7 +2,8 @@
 
 Ubuntu comes with many options for creating and managing VMs. Sometimes there are too many options. The goal 
 of this guide is to show how to create VMs quickly and doing everything from the command line, without
-having to use a windowing system.
+having to use a windowing system. Even better, this guide will create a script which creates and defines a VM
+in a single step which is accessible by SSH immediately, with no console or GUI tools needed.
 
 This entire guide removes the need to click around in `virt-manager` or similar tools.
 
@@ -118,8 +119,26 @@ The guest will see its IP interface as normal:
                     - 8.8.8.8
         version: 2
 
-This could be configured from within the virt-builder command too by importing it as a file. 
+Within the sample script, we use the `--write` command to automatically set those values during installation.
 
-# TODO
+# Users with empty passwords and ssh: problems in first login
 
-Update these notes to show a full working example including setting up the guest network from the virt-builder command.
+The `virt-builder` instructions recommend using this command to set up a user with no password, and the user
+is forced to change password on first login:
+
+    --firstboot-command 'useradd -m -p "" rjones ; chage -d 0 rjones'
+
+The problem with this is that by default ssh doesn't allow empty password logins so this user can't log in except on console,
+and ideally we would go straight into an SSH session. We could change the ssh config to allow login with empty password,
+but then we have to not forget to take an additional step to change the ssh configuration after first login.
+
+The solution is to specify a non-empty password:
+
+    --firstboot-command "useradd --shell /bin/bash -m -p '' --groups sudo admin; echo admin:mypassword | chpasswd; chage -d0 admin" 
+
+This will create an admin user with a non-empty password which must be changed on first login, and can be set by ssh.
+
+# Putting it all together
+
+Look at the included vm-builder script to see a working example that does it all in one script, creating a VM
+with correct static IPs and ready to access by SSH.
