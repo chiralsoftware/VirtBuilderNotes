@@ -145,7 +145,7 @@ with correct static IPs and ready to access by SSH.
 
 # Upon first login
 
-Copy over your SSH key using `ssh-copy-id` and then edit and set:
+Copy over your SSH key using `ssh-copy-id` and then edit `/etc/ssh/sshd_config` and set:
 
     PasswordAuthentication no
 
