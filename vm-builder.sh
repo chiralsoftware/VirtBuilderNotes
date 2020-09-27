@@ -11,7 +11,7 @@ HOSTNAME="new-server"
 
 # These values don't need to be changed if you want to use the defaults:
 FIRST_USER=admin
-FIRST_USER=password
+FIRST_PASSWORD=password
 SIZE=15G
 
 
@@ -129,3 +129,6 @@ echo
 #echo " and you can connect on console with:"
 #echo
 #echo "virsh console $HOSTNAME"
+echo "Connect with:"
+echo "ssh $FIRST_USER@$IP"
+echo
