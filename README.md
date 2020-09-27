@@ -142,3 +142,11 @@ This will create an admin user with a non-empty password which must be changed o
 
 Look at the included vm-builder script to see a working example that does it all in one script, creating a VM
 with correct static IPs and ready to access by SSH.
+
+# Upon first login
+
+Copy over your SSH key using `ssh-copy-id` and then edit and set:
+
+    PasswordAuthentication no
+
+Also run any updates and enable the firewall.
