@@ -12,6 +12,7 @@ HOSTNAME="new-server"
 # These values don't need to be changed if you want to use the defaults:
 FIRST_USER=admin
 FIRST_PASSWORD=password
+# size is ignored for now - there is some bug in virtbuilder
 SIZE=15G
 
 
@@ -81,14 +82,15 @@ network:
 # There's another thing called virt-install that makes an image from pacakges,
 # but virt-builder is faster becasue it uses pre-built packages
 # See: https://developer.fedoraproject.org/tools/virt-builder/about.html for the difference
-virt-builder  ubuntu-18.04 --update --format qcow2 --hostname $HOSTNAME \
+virt-builder  ubuntu-20.04 --update --format qcow2 --hostname $HOSTNAME \
 	      --output $IMAGE_PATH/server.qcow2 \
 	      --install emacs,yaml-mode \
-	      --size $SIZE \
 	      --write /etc/netplan/01-netcfg.yaml:"$NETPLAN" \
 	      --firstboot-command "useradd --shell /bin/bash -m -p '' --groups sudo $FIRST_USER; echo $FIRST_USER:$FIRST_PASSWORD | chpasswd; chage -d0 $FIRST_USER" \
 	      --root-password locked:disabled || die "Failed to run virt-builder!"
 
+# the size setting is giving an error now for some reason
+#	      --size $SIZE
 
 # IF YOU WANT TO ENABLE CONSOLE
 
