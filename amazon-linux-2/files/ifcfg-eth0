@@ -1,0 +1,18 @@
+# this goes in /etc/sysconfig/network-scripts
+
+# Manual
+DEVICE=eth0
+NM_CONTROLLED=no
+ONBOOT=yes
+TYPE=Ethernet
+USERCTL=no
+BOOTPROTO=none
+IPADDR=128.32.43.201
+NETMASK=255.255.255.0
+GATEWAY=128.32.43.1
+DNS1=192.168.1.1
+DNS2=8.8.8.8
+DNS3=8.8.4.4
+DEFROUTE=yes
+IPV4_FAILURE_FATAL=no
+IPV6INIT=no
