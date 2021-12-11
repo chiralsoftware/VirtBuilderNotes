@@ -30,7 +30,7 @@ echo "Injecting an SSH key, setting network and turning off cloud init"
 virt-customize -a amazon-image.qcow2 \
 	       --copy-in files/99-disable-network-config.cfg:/etc/cloud/cloud.cfg.d \
 	       --copy-in files/ifcfg-eth0:/etc/sysconfig/network-scripts \
-	       --ssh-inject ec2-user:file:amazon-network/ec2-user-key 
+	       --ssh-inject ec2-user:file:files/ec2-user-key 
 #	       --selinux-relabel
 
 echo "Done. Start the VM with:"
