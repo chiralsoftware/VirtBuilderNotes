@@ -25,12 +25,15 @@ virsh destroy $VM_NAME
 #echo "Changing the password"
 # changing the password isn't needed - just use the SSH key to log in
 #virt-customize -a amazon-image.qcow2  --password ec2-user:password:hello
+# but because the password is not set, and cloud-init doesn't run, we do need to
+# add a no-password line to sudo
 echo "Injecting an SSH key, setting network and turning off cloud init"
 
 virt-customize -a amazon-image.qcow2 \
 	       --copy-in files/99-disable-network-config.cfg:/etc/cloud/cloud.cfg.d \
 	       --copy-in files/ifcfg-eth0:/etc/sysconfig/network-scripts \
-	       --ssh-inject ec2-user:file:files/ec2-user-key 
+	       --ssh-inject ec2-user:file:files/ec2-user-key  \
+               --append-line '/etc/sudoers:ec2-user ALL=(ALL) NOPASSWD:ALL'
 #	       --selinux-relabel
 
 echo "Done. Start the VM with:"
