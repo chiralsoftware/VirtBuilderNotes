@@ -1,4 +1,4 @@
-# Installing the CoyoteCam software on the Jetson
+# Installing Using an Ubuntu 18.04 VM to flash NVidia Jetson
 
 Chiral Software, Inc. Updated May 12, 2022
 
@@ -365,3 +365,7 @@ This saves another 1gb.
 See [this
 reference](https://dev.to/ajeetraina/how-i-cleaned-up-jetson-nano-disk-space-by-40-b9h)
 for background on saving space on the Jetson.
+
+## Use Ansible to perform installation of the application
+
+Notes on Ansible on the Jetson, and an example, will be added here.
