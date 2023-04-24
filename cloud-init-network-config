@@ -1,0 +1,14 @@
+network:
+  ethernets:
+    enp1s0:
+      addresses:
+      - 122.122.122.53/28
+      nameservers:
+        addresses:
+        - 8.8.8.8
+        search:
+        - example.com
+      routes:
+      - to: default
+        via: 122.122.122.49
+  version: 2
