@@ -22,7 +22,18 @@ fi
 # wget http://cloud-images.ubuntu.com/jammy/current/
 
 # first create the disk image which is a copy (copy on write) of the cloud image
-qemu-img create -b $BACKING_IMAGE -f qcow2 -F qcow2 $IMAGE_FILE 10G
+#qemu-img create -b $BACKING_IMAGE -f qcow2 -F qcow2 $IMAGE_FILE 10G
+#virt-filesystems -a $IMAGE_FILE -lh
+
+# The created image looks for the backing image as a relative path
+# It may be easier to just copy the backing image and resize it:
+TMP_IMAGE=$(mktemp --suffix=.img)
+cp $BACKING_IMAGE $TMP_IMAGE
+qemu-img resize $TMP_IMAGE +10G
+truncate -r $TMP_IMAGE $IMAGE_FILE
+virt-resize--expand /dev/sda1 $TMP_IMAGE $IMAGE_FILE
+rm $TMP_IMAGE
+virt-filesystems -a $IMAGE_FILE -lh
 
 virt-install \
     --name=$VM_NAME \
