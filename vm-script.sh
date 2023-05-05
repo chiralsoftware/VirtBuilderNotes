@@ -27,13 +27,8 @@ fi
 
 # The created image looks for the backing image as a relative path
 # It may be easier to just copy the backing image and resize it:
-TMP_IMAGE=$(mktemp --suffix=.img)
-cp $BACKING_IMAGE $TMP_IMAGE
-qemu-img resize $TMP_IMAGE +10G
-truncate -r $TMP_IMAGE $IMAGE_FILE
-virt-resize--expand /dev/sda1 $TMP_IMAGE $IMAGE_FILE
-rm $TMP_IMAGE
-virt-filesystems -a $IMAGE_FILE -lh
+cp $BACKING_IMAGE $IMAGE_FILE
+qemu-img resize $IMAGE_FILE +10G
 
 virt-install \
     --name=$VM_NAME \
