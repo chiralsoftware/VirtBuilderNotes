@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# To do: make a version of this that works with RHEL / OL images using 
+# https://computingforgeeks.com/rhel-centos-kickstart-automated-installation-kvm-virt-install/
+# The key is to create a ks.cfg file and then use --initrd-inject with virt-install to run that kickstart file
+
 # With inspiration from:
 # https://sumit-ghosh.com/posts/create-vm-using-libvirt-cloud-images-cloud-init/
 
