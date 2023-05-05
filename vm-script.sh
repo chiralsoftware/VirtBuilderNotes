@@ -14,12 +14,11 @@ SSH_KEY=~/.ssh/id_rsa.pub
 
 if [ ! -f $BACKING_FILE ]; then
     echo $BACKING_FILE does not exist. Downloading it...
-    wget http://cloud-images.ubuntu.com/$UBUNTU_NAME/current/
+    wget http://cloud-images.ubuntu.com/$UBUNTU_NAME/current/$BACKING_IMAGE
 fi
 
-
 # get the image here:
-# wget http://cloud-images.ubuntu.com/jammy/current/
+# wget http://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img
 
 # first create the disk image which is a copy (copy on write) of the cloud image
 #qemu-img create -b $BACKING_IMAGE -f qcow2 -F qcow2 $IMAGE_FILE 10G
