@@ -1,0 +1,14 @@
+network:
+  ethernets:
+    enp1s0:
+      addresses:
+      - 173.198.59.53/28
+      nameservers:
+        addresses:
+        - 209.18.47.61
+        search:
+        - chiralsoftware.com
+      routes:
+      - to: default
+        via: 173.198.59.49
+  version: 2

@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# These two parameters are required
+IP_ADDRESS=192.168.10.10
+VM_NAME=build
+
+# the following should be the same for all our VMs
+NETWORK_BITS=224
+NAME_SERVER=209.18.47.61
+NAME_SEARCH=example.com
+DEFAULT_ROUTE=173.198.59.1
+SSH_KEY=~myuser/.ssh/id_rsa.pub
+
+source ../vm-local.sh
