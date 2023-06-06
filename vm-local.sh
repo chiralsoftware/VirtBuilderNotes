@@ -1,9 +1,5 @@
 #!/bin/bash
 
-# To do: make a version of this that works with RHEL / OL images using 
-# https://computingforgeeks.com/rhel-centos-kickstart-automated-installation-kvm-virt-install/
-# The key is to create a ks.cfg file and then use --initrd-inject with virt-install to run that kickstart file
-
 # With inspiration from:
 # https://sumit-ghosh.com/posts/create-vm-using-libvirt-cloud-images-cloud-init/
 
@@ -20,15 +16,12 @@ BACKING_FILE=jammy-server-cloudimg-amd64.img
 
 if [ ! -f $BACKING_FILE ]; then
     echo $BACKING_FILE does not exist. Downloading it...
-<<<<<<< HEAD:vm-local.sh
     wget http://cloud-images.ubuntu.com/$(echo $BACKING_FILE | awk -F- '{ print $1 }')/current/$BACKING_FILE
-=======
-    wget http://cloud-images.ubuntu.com/$UBUNTU_NAME/current/$BACKING_IMAGE
->>>>>>> edacf2483578f1a01b38da3c8a9055f43ff3b1c5:vm-script.sh
 fi
 
+
 # get the image here:
-# wget http://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img
+# wget http://cloud-images.ubuntu.com/jammy/current/
 
 # first create the disk image which is a copy (copy on write) of the cloud image
 #qemu-img create -b $BACKING_IMAGE -f qcow2 -F qcow2 $IMAGE_FILE 10G
@@ -36,7 +29,6 @@ fi
 
 # The created image looks for the backing image as a relative path
 # It may be easier to just copy the backing image and resize it:
-<<<<<<< HEAD:vm-local.sh
 cp $BACKING_FILE $IMAGE_FILE || die "couldn't copy $BACKING_IMAGE"
 
 qemu-img resize $IMAGE_FILE +10G || die "Couldn't resize $IMAGE_FILE"
@@ -52,10 +44,6 @@ envsubst < cloud-init-network-config-template > $INIT_FILE
 
 echo "Ignore warnings about cloud config schema errors"
 # see: https://superuser.com/questions/1725127/invalid-config-for-cloud-init-but-apparently-still-works-how-do-i-remove-the
-=======
-cp $BACKING_IMAGE $IMAGE_FILE
-qemu-img resize $IMAGE_FILE +10G
->>>>>>> edacf2483578f1a01b38da3c8a9055f43ff3b1c5:vm-script.sh
 
 virt-install \
     --name=$VM_NAME \
